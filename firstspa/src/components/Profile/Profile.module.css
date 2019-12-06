@@ -3,7 +3,10 @@
     background-color: lightblue;
   }
 
-
   .content_main_image {
-    width: 1000px;
+    width: 900px;
+  }
+
+  .avatar {
+    width: 250px;
   }
