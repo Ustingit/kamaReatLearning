@@ -11,12 +11,12 @@ const MyPosts = () => {
             <button>Add post</button>
         </div>
       <div className={css.posts}>Posts:
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          <Post text='Post 1' />
+          <Post text='Post 2' />
+          <Post text='Post 3' />
+          <Post text='Post 4' />
+          <Post text='Post 5' />
+          <Post text='Post 6' />
       </div>
       </div>
     )
