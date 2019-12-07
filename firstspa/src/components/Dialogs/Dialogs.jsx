@@ -18,19 +18,41 @@ const Message = (props) => {
 }
 
 const Dialogs = (props) => {
+
+    let usersData = [
+        { id: 1, name: 'Dima' },
+        { id: 2, name: 'Sveta' },
+        { id: 3, name: 'Katya' },
+        { id: 4, name: 'Kolya' },
+        { id: 5, name: 'Valera' }
+    ];
+
+    let messagesData = [
+        { id: 1, text: 'Hi!' },
+        { id: 2, text: 'How are you ?' },
+        { id: 3, text: 'Yo!' },
+        { id: 4, text: 'Kolya' },
+        { id: 5, text: 'Valera' }
+    ];
+
+    const userItems = []
+    
+    for (const [key, value] of usersData.entries()) {
+        userItems.push(<DialogItem name={value.name} id={value.id} />)
+    }
+    
+    const messagesItems = [];
+    for (const [key, value] of messagesData.entries()) {
+        messagesItems.push(<Message text={value.text} />)
+    }
+
     return (
         <div className={css.dialogs}>
             <div className={css.dialogsItems}>
-                <DialogItem name="Dima" id="1" />
-                <DialogItem name="Sveta" id="2" />
-                <DialogItem name="Katya" id="3" />
-                <DialogItem name="Kolya" id="4" />
-                <DialogItem name="Valera" id="5" />
+                {userItems}
             </div>
             <div className={css.messages}>
-                <Message text='Hi!' />
-                <Message text='How are you ?' />
-                <Message text='Yo!' />
+                {messagesItems}
             </div>
         </div>
     )
