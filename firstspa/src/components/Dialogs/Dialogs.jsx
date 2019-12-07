@@ -35,16 +35,8 @@ const Dialogs = (props) => {
         { id: 5, text: 'Valera' }
     ];
 
-    const userItems = []
-    
-    for (const [key, value] of usersData.entries()) {
-        userItems.push(<DialogItem name={value.name} id={value.id} />)
-    }
-    
-    const messagesItems = [];
-    for (const [key, value] of messagesData.entries()) {
-        messagesItems.push(<Message text={value.text} />)
-    }
+    const userItems = usersData.map(x => <DialogItem name={x.name} id={x.id} />);
+    const messagesItems = messagesData.map(x => <Message text={x.text} />);
 
     return (
         <div className={css.dialogs}>

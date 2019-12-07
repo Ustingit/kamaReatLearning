@@ -13,10 +13,7 @@ const MyPosts = () => {
     { id: 6, text: 'Post 6', likesCount: '8' }
   ];
 
-  const postsItems = []
-  for (const [key, value] of postsRawData.entries()) {
-    postsItems.push(<Post text={value.text} likesCount={value.likesCount} />)
-  }
+  const postsItems = postsRawData.map(x => <Post text={x.text} likesCount={x.likesCount} />);
 
   return (
     <div className={css.postsBlock}><h3>My posts</h3>
