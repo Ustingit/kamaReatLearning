@@ -9,9 +9,7 @@ import App from './App';
 let rerenderEntireTree = (state) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App state={state} 
-                 addPost={store.addPost.bind(store)}
-                 setNewPostFunction={store.setNewPostText.bind(store)} />
+            <App state={state} dispatch={store.dispatch.bind(store)} />
         </BrowserRouter>, 
     document.getElementById('root'));
 }

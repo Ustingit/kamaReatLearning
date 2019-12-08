@@ -38,19 +38,21 @@ let store = {
     _callSubscriber() {
         console.log('currently there are no any subscribers');
     },
-    addPost() {
-        this._state.profilePage.postsRawData.push(
-            {id: 7, text: this._state.profilePage.newPostText, likesCount: 0 }
-        );
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this._state);
-    },
-    setNewPostText(newPostText) {
-        this._state.profilePage.newPostText = newPostText;
-        this._callSubscriber(this._state);
-    },
     subscribe(observer) {
         this._callSubscriber = observer;
+    },
+    dispatch(action) {
+        if(action.type === "ADD-POST"){
+            let newPost = {id: 7, text: this._state.profilePage.newPostText, likesCount: 0 };
+            
+            this._state.profilePage.postsRawData.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this._state);
+        }
+        else if (action.type === "SET-POST-TEXT") {
+            this._state.profilePage.newPostText = action.newPostText;
+            this._callSubscriber(this._state);
+        }
     }
 }
 
