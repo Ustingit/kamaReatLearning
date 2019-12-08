@@ -1,12 +1,14 @@
-import {rerenderEntireTree} from './../render';
+let rerenderEntireTree = () => {
+    console.log('state change');
+}
 
-export let addPost = () => {
+export const addPost = () => {
     state.profilePage.postsRawData.push({id: 7, text: state.profilePage.newPostText, likesCount: 0 });
     state.profilePage.newPostText = '';
     rerenderEntireTree(state);
 }
 
-export let setNewPostText = (newPostText) => {
+export const setNewPostText = (newPostText) => {
     state.profilePage.newPostText = newPostText;
     rerenderEntireTree(state);
 }
@@ -17,9 +19,7 @@ let postsRawData = [
     { id: 3, text: 'Post 3', likesCount: '547' },
     { id: 4, text: 'Post 4', likesCount: '14' },
     { id: 5, text: 'Post 5', likesCount: '1' },
-    { id: 6, text: 'Post 6', likesCount: '8' }
-  ];
-
+    { id: 6, text: 'Post 6', likesCount: '8' }];
   let usersData = [
     { id: 1, name: 'Dima' },
     { id: 2, name: 'Sveta' },
@@ -27,7 +27,6 @@ let postsRawData = [
     { id: 4, name: 'Kolya' },
     { id: 5, name: 'Valera' }
 ];
-
 let messagesData = [
     { id: 1, text: 'Hi!' },
     { id: 2, text: 'How are you ?' },
@@ -49,6 +48,12 @@ let state = {
     sitebar: {
         
     }
+}
+
+window.state = state;
+
+export const subscribe = (observer) => {
+    rerenderEntireTree = observer;
 }
 
 export default state;
