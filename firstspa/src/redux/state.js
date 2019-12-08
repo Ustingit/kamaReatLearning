@@ -1,5 +1,16 @@
 import {rerenderEntireTree} from './../render';
 
+export let addPost = () => {
+    state.profilePage.postsRawData.push({id: 7, text: state.profilePage.newPostText, likesCount: 0 });
+    state.profilePage.newPostText = '';
+    rerenderEntireTree(state);
+}
+
+export let setNewPostText = (newPostText) => {
+    state.profilePage.newPostText = newPostText;
+    rerenderEntireTree(state);
+}
+
 let postsRawData = [
     { id: 1, text: 'Post 1', likesCount: '1' },
     { id: 2, text: 'Post 2', likesCount: '231' },
@@ -31,16 +42,13 @@ let state = {
         messagesData: messagesData
     },
     profilePage: {
-        postsRawData: postsRawData
+        postsRawData: postsRawData,
+        newPostText: "Введите текст поста",
+        setNewPostTextFunction: setNewPostText
     },
     sitebar: {
         
     }
-}
-
-export let addPost = (postMessage) => {
-    state.profilePage.postsRawData.push({id: 7, text: postMessage, likesCount: 0 });
-    rerenderEntireTree(state);
 }
 
 export default state;
