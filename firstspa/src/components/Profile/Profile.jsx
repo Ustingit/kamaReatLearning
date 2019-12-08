@@ -10,7 +10,7 @@ const Profile = (props) => {
       <MyPosts posts={props.state.postsRawData} 
                addPost={props.addPost} 
                newPostText={props.state.newPostText}
-               setNewPostText={props.state.setNewPostTextFunction} />
+               setNewPostText={props.setNewPostFunction} />
     </div>
   )
 }
