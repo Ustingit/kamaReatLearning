@@ -36,4 +36,8 @@ let state = {
     }
 }
 
+export let addPost = (postMessage) => {
+    state.profilePage.postsRawData.push({id: 7, text: postMessage, likesCount: 0 });
+}
+
 export default state;
