@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from './../render';
+
 let postsRawData = [
     { id: 1, text: 'Post 1', likesCount: '1' },
     { id: 2, text: 'Post 2', likesCount: '231' },
@@ -38,6 +40,7 @@ let state = {
 
 export let addPost = (postMessage) => {
     state.profilePage.postsRawData.push({id: 7, text: postMessage, likesCount: 0 });
+    rerenderEntireTree(state);
 }
 
 export default state;
