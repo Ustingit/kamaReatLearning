@@ -7,7 +7,6 @@ import Dialogs from './components/Dialogs/Dialogs';
 import { Route } from 'react-router-dom';
 
 function App(props) {
-  debugger;
   return (
       <div className="app-wrapper">
         <Header />
