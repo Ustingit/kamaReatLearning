@@ -1,7 +1,5 @@
-const ADD_POST = "ADD-POST";
-const SET_TEXT_FOR_NEW_POST = "SET-POST-TEXT";
-const SET_NEW_MESSAGE_TEXT = "SET-MESSAGE-TEXT";
-const SEND_MESSAGE = "SEND-MESSAGE";
+import {profileReducer} from './profileReducer';
+import {dialogsReducer} from './dialogsReducers';
 
 let store = {
     _state: {
@@ -42,49 +40,10 @@ let store = {
         this._callSubscriber = observer;
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            let newPost = { id: 7, text: this._state.profilePage.newPostText, likesCount: 0 };
-
-            this._state.profilePage.postsRawData.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(this);
-        }
-        else if (action.type === SET_TEXT_FOR_NEW_POST) {
-            this._state.profilePage.newPostText = action.newPostText;
-            this._callSubscriber(this);
-        }
-        else if (action.type === SET_NEW_MESSAGE_TEXT){
-            this._state.dialogsPage.newMessageBody = action.newMessageText;
-            this._callSubscriber(this);
-        }
-        else if (action.type === SEND_MESSAGE){
-            let body = this._state.dialogsPage.newMessageBody;
-            this._state.dialogsPage.newMessageBody = '';
-            this._state.dialogsPage.messagesData.push({
-                id: 7,
-                text: body
-            });
-            this._callSubscriber(this);
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._callSubscriber(this);
     }
-}
-
-export let sendMessage = () => ({ type: SEND_MESSAGE });
-
-export let setNewMessageText = (text) => {
-    return {
-        type: SET_NEW_MESSAGE_TEXT,
-        newMessageText: text
-    }
-}
-
-export let addPostActionCreator = () => ({ type: ADD_POST });
-
-export let updateNewPostActionCreator = (text) => {
-    return {
-        type: SET_TEXT_FOR_NEW_POST,
-        newPostText: text
-    };
 }
 
 export default store;
