@@ -1,3 +1,6 @@
+const ADD_POST = "ADD-POST";
+const SET_TEXT_FOR_NEW_POST = "SET-POST-TEXT";
+
 let postsRawData = [
     { id: 1, text: 'Post 1', likesCount: '1' },
     { id: 2, text: 'Post 2', likesCount: '231' },
@@ -42,18 +45,27 @@ let store = {
         this._callSubscriber = observer;
     },
     dispatch(action) {
-        if(action.type === "ADD-POST"){
-            let newPost = {id: 7, text: this._state.profilePage.newPostText, likesCount: 0 };
-            
+        if (action.type === ADD_POST) {
+            let newPost = { id: 7, text: this._state.profilePage.newPostText, likesCount: 0 };
+
             this._state.profilePage.postsRawData.push(newPost);
             this._state.profilePage.newPostText = '';
             this._callSubscriber(this._state);
         }
-        else if (action.type === "SET-POST-TEXT") {
+        else if (action.type === SET_TEXT_FOR_NEW_POST) {
             this._state.profilePage.newPostText = action.newPostText;
             this._callSubscriber(this._state);
         }
     }
+}
+
+export let addPostActionCreator = () => ({ type: ADD_POST });
+
+export let updateNewPostActionCreator = (text) => {
+    return {
+        type: SET_TEXT_FOR_NEW_POST,
+        newPostText: text
+    };
 }
 
 export default store;
