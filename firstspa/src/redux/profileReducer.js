@@ -1,7 +1,18 @@
 const ADD_POST = "ADD-POST";
 const SET_TEXT_FOR_NEW_POST = "SET-POST-TEXT";
 
-export const profileReducer = (state, action) => {
+let initialState = {
+    postsRawData: [
+        { id: 1, text: 'Post 1', likesCount: '1' },
+        { id: 2, text: 'Post 2', likesCount: '231' },
+        { id: 3, text: 'Post 3', likesCount: '547' },
+        { id: 4, text: 'Post 4', likesCount: '14' },
+        { id: 5, text: 'Post 5', likesCount: '1' },
+        { id: 6, text: 'Post 6', likesCount: '8' }],
+    newPostText: "Введите текст поста"
+}
+
+export const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST:
             let newPost = { id: 7, text: state.newPostText, likesCount: 0 };
