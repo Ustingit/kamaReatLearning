@@ -12,8 +12,7 @@ function App(props) {
         <Header />
         <Navbar />
         <div className="app-wrapper-content">
-          <Route path='/profile' render={() => 
-          <Profile />} />
+          <Route path='/profile' render={() => <Profile />} />
 
           <Route path='/dialogs' render={() => <DialogsContainer />} />
         </div>

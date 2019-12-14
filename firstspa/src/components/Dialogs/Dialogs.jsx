@@ -4,8 +4,8 @@ import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
 
 const Dialogs = (props) => {
-    const userItems = props.users.map(x => <DialogItem name={x.name} id={x.id} />);
-    const messagesItems = props.messages.map(x => <Message text={x.text} />);
+    const userItems = props.dialogsPage.usersData.map(x => <DialogItem name={x.name} id={x.id} />);
+    const messagesItems = props.dialogsPage.messagesData.map(x => <Message text={x.text} />);
 
     let onMessageTextChange = (event) => {
         let value = event.target.value;

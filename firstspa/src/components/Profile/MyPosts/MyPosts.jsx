@@ -3,8 +3,7 @@ import css from './MyPosts.module.css';
 import Post from './Post/Post';
 
 const MyPosts = (props) => {
-  debugger
-  const postsItems = props.posts.map(x => <Post text={x.text} likesCount={x.likesCount} />);
+  const postsItems = props.profilePage.postsRawData.map(x => <Post text={x.text} likesCount={x.likesCount} />);
 
   let addPost = () => {
     props.addNewPost()
@@ -24,7 +23,7 @@ const MyPosts = (props) => {
           <textarea
           ref={ newPostElement } 
           onChange={ onPostChange } 
-          value={ props.newPostText }>
+          value={ props.profilePage.newPostText }>
           </textarea>
         </div>
         <button onClick={ addPost }>Add post</button>
