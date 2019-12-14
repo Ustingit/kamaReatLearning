@@ -4,8 +4,8 @@ import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
 
 const Dialogs = (props) => {
-    const userItems = props.dialogsPage.usersData.map(x => <DialogItem name={x.name} id={x.id} />);
-    const messagesItems = props.dialogsPage.messagesData.map(x => <Message text={x.text} />);
+    const userItems = props.dialogsPage.usersData.map(x => <DialogItem name={x.name} key={x.id} id={x.id} />);
+    const messagesItems = props.dialogsPage.messagesData.map(x => <Message text={x.text} key={x.id} />);
 
     let onMessageTextChange = (event) => {
         let value = event.target.value;
@@ -27,7 +27,7 @@ const Dialogs = (props) => {
                     <div><p>---------------------</p>New message:</div>
                     <div>
                         <textarea placeholder="enter your message here."
-                            value= {props.messageBody }
+                            value= {props.dialogsPage.newMessageBody}
                             onChange={ onMessageTextChange }>
                         </textarea>
                     </div>
