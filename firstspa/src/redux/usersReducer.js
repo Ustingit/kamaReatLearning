@@ -13,7 +13,7 @@ export const usersReducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.map(x => {
                     if (x.id === action.userId) {
-                        return {...x, isFollowed: true };
+                        return {...x, followed: true };
                     }
                     return x;
                 })
@@ -23,7 +23,7 @@ export const usersReducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.map(x => {
                     if (x.id === action.userId) {
-                        return {...x, isFollowed: false };
+                        return {...x, followed: false };
                     }
                     return x;
                 })
