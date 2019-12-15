@@ -4,17 +4,19 @@ import Axios from 'axios';
 import image from './../../assets/images/avaDefault2.png';
 
 const Users = (props) => {
-  if(props.users.length === 0){
-
-    Axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-      debugger
-      props.setUsers(response.data.items);
-      debugger
-    });
+  let getUsers = () => {
+    if(props.users.length === 0){
+      Axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+        debugger
+        props.setUsers(response.data.items);
+        debugger
+      });
+    }
   }
 
   return (
     <div>
+      <button onClick={getUsers}>Get users</button>
       {props.users.map(x =>
 
         <div key={x.id}>
