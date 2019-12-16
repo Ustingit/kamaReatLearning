@@ -4,16 +4,42 @@ import Axios from 'axios';
 import image from './../../assets/images/avaDefault2.png';
 
 class Users extends React.Component {
-    componentDidMount() {
-      Axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+  componentDidMount() {
+    Axios
+      .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+      .then(response => {
+        this.props.setUsers(response.data.items);
+        this.props.setItemsCount(response.data.totalCount);
+      });
+  }
+
+  onPageChanged = (pageNumber) => {
+    this.props.setCurrentPage(pageNumber)
+    Axios
+      .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+      .then(response => {
         this.props.setUsers(response.data.items);
       });
   }
 
   render() {
+    let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+      pages.push(i);
+    }
+
     return (
       <div>
-        { this.props.users.map(x =>
+        <div>
+
+          {pages.map(x =>
+            <span onClick={ () => { this.onPageChanged(x) } }
+              className={(this.props.currentPage === x) && css.selectedPage}>{x}</span>
+          )}
+
+        </div>
+        {this.props.users.map(x =>
 
           <div key={x.id}>
             <span>
