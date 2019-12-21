@@ -1,5 +1,6 @@
 const ADD_POST = "ADD-POST";
 const SET_TEXT_FOR_NEW_POST = "SET-POST-TEXT";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 let initialState = {
     postsRawData: [
@@ -9,7 +10,8 @@ let initialState = {
         { id: 4, text: 'Post 4', likesCount: '14' },
         { id: 5, text: 'Post 5', likesCount: '1' },
         { id: 6, text: 'Post 6', likesCount: '8' }],
-    newPostText: "Введите текст поста"
+    newPostText: "Введите текст поста",
+    profile: null
 }
 
 export const profileReducer = (state = initialState, action) => {
@@ -35,16 +37,22 @@ export const profileReducer = (state = initialState, action) => {
             };  //spread operator
             //stateCopy.newPostText = {...state.newPostText};
         }
+        case SET_USER_PROFILE: {
+            return {
+                ...state,
+                profile: action.profile
+            }
+        }
         default:
             return state;
     }
 }
 
 export let addPostActionCreator = () => ({ type: ADD_POST });
-
 export let updateNewPostActionCreator = (text) => {
     return {
         type: SET_TEXT_FOR_NEW_POST,
         newPostText: text
     };
 }
+export let setUserProfile = (userProfile) => ({ type: SET_USER_PROFILE, profile: userProfile })
