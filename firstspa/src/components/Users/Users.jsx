@@ -3,8 +3,6 @@ import css from './Users.module.css';
 import image from './../../assets/images/avaDefault2.png';
 
 let Users = (props) => {
-    debugger;
-
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
