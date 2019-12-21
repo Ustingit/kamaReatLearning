@@ -13,7 +13,7 @@ function App(props) {
         <Header />
         <Navbar />
         <div className="app-wrapper-content">
-          <Route path='/profile' render={() => <ProfileComponent />} />
+          <Route path='/profile/:userId?' render={() => <ProfileComponent />} />
           <Route path='/dialogs' render={() => <DialogsContainer />} />
           <Route path='/users' render={() => <UsersContainer />} />
         </div>
