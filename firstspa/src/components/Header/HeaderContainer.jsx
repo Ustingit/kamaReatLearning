@@ -19,7 +19,6 @@ class HeaderContainer extends React.Component {
                     this.props.setAuthUserData(response.data.data.id,
                         response.data.data.email,
                         response.data.data.login);
-                    debugger
                 }
             });
     }

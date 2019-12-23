@@ -1,3 +1,5 @@
+import Axios from 'axios';
+
 const UNFOLLOW = "UNFOLLOW";
 const FOLLOW = "FOLLOW";
 const SET_USERS = "SET_USERS";
@@ -16,25 +18,44 @@ let initialState = {
 export const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case FOLLOW:
-            return {
-                ...state,
-                users: state.users.map(x => {
-                    if (x.id === action.userId) {
-                        return {...x, followed: true };
+            Axios
+            .post(`https://social-network.samuraijs.com/api/1.0/follow/${action.userId}`, {}, {
+                withCredentials: true
+            })
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    return {
+                        ...state,
+                        users: state.users.map(x => {
+                            if (x.id === action.userId) {
+                                return {...x, followed: true };
+                            }
+                            return x;
+                        })
                     }
-                    return x;
-                })
-            }
+                }
+            });
+            return { ...state }
         case UNFOLLOW:
-            return {
-                ...state,
-                users: state.users.map(x => {
-                    if (x.id === action.userId) {
-                        return {...x, followed: false };
+            Axios
+            .delete(`https://social-network.samuraijs.com/api/1.0/follow/${action.userId}`, {
+                withCredentials: true
+                // ,headers: {  "API-KEY": "b1775b2f-c3a5-4509-8dc9-90b5629de7c3" }
+            })
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    return {
+                        ...state,
+                        users: state.users.map(x => {
+                            if (x.id === action.userId) {
+                                return {...x, followed: false };
+                            }
+                            return x;
+                        })
                     }
-                    return x;
-                })
-            }
+                }
+            });
+            return { ...state }
         case SET_USERS:
             return { ...state, users: action.users } //merge of 2 arrays
         case SET_CURRENT_PAGE:
