@@ -20,7 +20,10 @@ export const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             Axios
             .post(`https://social-network.samuraijs.com/api/1.0/follow/${action.userId}`, {}, {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    "API-KEY": "1b95658b-9031-4f4e-a216-a8df40226f99"
+                }
             })
             .then(response => {
                 if (response.data.resultCode === 0) {
@@ -39,8 +42,10 @@ export const usersReducer = (state = initialState, action) => {
         case UNFOLLOW:
             Axios
             .delete(`https://social-network.samuraijs.com/api/1.0/follow/${action.userId}`, {
-                withCredentials: true
-                // ,headers: {  "API-KEY": "b1775b2f-c3a5-4509-8dc9-90b5629de7c3" }
+                withCredentials: true,
+                headers: {
+                    "API-KEY": "1b95658b-9031-4f4e-a216-a8df40226f99"
+                }
             })
             .then(response => {
                 if (response.data.resultCode === 0) {

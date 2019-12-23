@@ -7,11 +7,10 @@ import { setAuthUserData } from '../../redux/auth-reducer';
 class HeaderContainer extends React.Component {
     componentDidMount() {
         // действие происходит когда данная компонента "вмонтирована"
-        let params = { "email": "free@samuraijs.com", "password": "free", "rememberMe": true }
+        let params = { "email": "ustinx@mail.ru", "password": "123qweASD!", "rememberMe": true }
 
         Axios.post(`https://social-network.samuraijs.com/api/1.0/auth/login`, params);
-        Axios
-            .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
+        Axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
                 withCredentials: true
             })
             .then(response => {
