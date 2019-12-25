@@ -2,6 +2,7 @@ import React from 'react';
 import css from './Dialogs.module.css';
 import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
+import {Redirect} from 'react-router-dom';
 
 const Dialogs = (props) => {
     const userItems = props.dialogsPage.usersData.map(x => <DialogItem name={x.name} key={x.id} id={x.id} />);
@@ -15,6 +16,8 @@ const Dialogs = (props) => {
     let onSendMessage = () => {
         props.sendMsg();
     }
+    
+    if(!props.isAuth) { return <Redirect to={'/login'} /> }
 
     return (
         <div className={css.dialogs}>
