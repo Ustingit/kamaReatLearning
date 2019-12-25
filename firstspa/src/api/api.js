@@ -18,10 +18,14 @@ export const userAPI = {
     },
     unfollow(userId) {
         return instance.delete(`follow/${userId}`)
+    },
+    getProfile(userId) {
+        return  instance.get(`profile/${userId}`)
     }
 }
 
-const _login = () => {
-    let params = { "email": "ustinx@mail.ru", "password": "123qweASD!", "rememberMe": true }
-    return instance.post(`auth/login`, params);
+export const authAPI = {
+    me() {
+        return instance.get(`auth/me`)
+    }
 }
