@@ -2,8 +2,7 @@ import { sendMessage, setNewMessageText } from './../../redux/dialogsReducers';
 import Dialogs from './Dialogs';
 import {connect} from 'react-redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
-
-let authRedirectComponent = withAuthRedirect(Dialogs);
+import {compose} from 'redux';
 
 let mapStateToProps = (state) => {
     return {
@@ -22,7 +21,8 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-//roughly speaking "connect" is HOC too, and withRoute, etc. It's just wrapper
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(authRedirectComponent);
-
-export default DialogsContainer;
+//roughly speaking "connect" returns HOC too, and withRoute is HOC, etc. It's just wrappers
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs)
