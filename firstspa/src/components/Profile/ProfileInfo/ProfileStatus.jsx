@@ -20,6 +20,12 @@ class ProfileStatus extends React.Component {
         })
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.status !== this.props.status){  //in did update really imp to set some conditions for action, in other cases hish risk of stackoverflow
+            this.setState({ status: this.props.status })  //state synchronization
+        }
+    }
+
     render() {
         return(
             <>
