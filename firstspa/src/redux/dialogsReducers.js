@@ -1,4 +1,3 @@
-const SET_NEW_MESSAGE_TEXT = "SET-MESSAGE-TEXT";
 const SEND_MESSAGE = "SEND-MESSAGE";
 
 let initialState = {
@@ -15,27 +14,19 @@ let initialState = {
         { id: 3, text: 'Yo!' },
         { id: 4, text: 'Kolya' },
         { id: 5, text: 'Valera' }
-    ],
-    newMessageBody: ''
+    ]
 }
 
 export const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_NEW_MESSAGE_TEXT: {
-            return {
-                ...state,
-                newMessageBody: action.newMessageText
-            };
-        }
         case SEND_MESSAGE: {
-            let body = state.newMessageBody;
+            let body = action.newMessage;
             let newMessage = {
                 id: state.messagesData[state.messagesData.length - 1].id + 1,
                 text: body
             };
             return {
                 ...state,
-                newMessageBody: "",
                 messagesData: [...state.messagesData, newMessage]
             };
         }
@@ -44,11 +35,4 @@ export const dialogsReducer = (state = initialState, action) => {
     }
 }
 
-export let sendMessage = () => ({ type: SEND_MESSAGE });
-
-export let setNewMessageText = (text) => {
-    return {
-        type: SET_NEW_MESSAGE_TEXT,
-        newMessageText: text
-    }
-}
+export let sendMessage = (newMessage) => ({ type: SEND_MESSAGE, newMessage });

@@ -1,4 +1,4 @@
-import { sendMessage, setNewMessageText } from './../../redux/dialogsReducers';
+import { sendMessage } from './../../redux/dialogsReducers';
 import Dialogs from './Dialogs';
 import {connect} from 'react-redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
@@ -12,11 +12,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        setNewMsgText: (text) => {
-            dispatch(setNewMessageText(text))
-        },
-        sendMsg: () => {
-            dispatch(sendMessage())
+        sendMsg: (newMessage) => {
+            dispatch(sendMessage(newMessage))
         }
     }
 }
