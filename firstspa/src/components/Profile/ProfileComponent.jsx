@@ -8,7 +8,14 @@ import {compose} from 'redux';
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    let userId = this.props.match.params.userId ? this.props.match.params.userId : 5509; //2;
+    let userId = this.props.match.params.userId;
+    if(!userId) {
+        userId = 5509; //TODO: instead of this here has to be "authorizedUserId" - check!!
+        if(!userId) {
+          this.props.history.push("/login");
+        }
+    }
+
     this.props.getUserProfile(userId);
     this.props.getUserStatus(userId);
   }
