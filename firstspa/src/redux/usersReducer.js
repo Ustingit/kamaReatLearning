@@ -68,10 +68,10 @@ export let setIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetchi
 export let setIsFollowing = (isFollowing, userId) => ({ type: TOGGLE_IS_FOLLOWING, isFollowing, userId });
 
 //thunk creator, this function that dispatchs actions is THUNK
-export const getUsers = (currentPage, pageSize) => {
+export const getUsers = (page, pageSize) => {
     return (dispatch) => {
         dispatch(setIsFetching(true));
-        userAPI.getUsers(currentPage, pageSize).then(data => {
+        userAPI.getUsers(page, pageSize).then(data => {
             dispatch(setIsFetching(false));
             dispatch(setUsers(data.items));
             dispatch(setItemsCount(data.totalCount));
