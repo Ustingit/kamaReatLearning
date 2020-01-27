@@ -3,6 +3,7 @@ import { userAPI, profileAPI } from '../api/api';
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_USER_STATUS = "SET_USER_STATUS";
+const DELETE_POST_BY_INDEX = "DELETE_POST_BY_INDEX";
 
 let initialState = {
     postsRawData: [
@@ -43,6 +44,12 @@ export const profileReducer = (state = initialState, action) => {
                 status: action.status
             }
         }
+        case DELETE_POST_BY_INDEX: {
+            return {
+                ...state,
+                postsRawData: state.postsRawData.filter(x => x.id !== action.index)
+            }
+        }
         default:
             return state;
     }
@@ -72,3 +79,5 @@ export const updateUserStatus = (status) => (dispatch) => {
         }
       });
 }
+
+export const deletePost = (index) => ({ type: DELETE_POST_BY_INDEX, index });
