@@ -3,27 +3,20 @@ import css from './ProfileInfo.module.css';
 import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
-const ProfileInfo = (props) => {
-    if(!props.profile){
+const ProfileInfo = ({profile, status, updateStatus, ...props}) => {
+    if(!profile){
         return <Preloader />
     }
 
     return (
         <div>
-            <div>
-                {/* <img className={css.content_main_image}
-                    alt=""
-                    src='https://www.canon.ru/media/EOS_5D_Mark_IV_CINC%20_sample-image2_1920x520_hero_tcm203-1374061.jpg'>
-                </img> */}
-            </div>
             <div className={css.descriptionBlock}>
-                ava + post
                 <div>
                     <img className={css.avatar} 
                     alt='avatar' 
-                    src={ props.profile.photos.small }>
+                    src={ profile.photos.small }>
                     </img>
-                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
+                    <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
                 </div>
             </div>
         </div>

@@ -13,12 +13,14 @@ from '../../redux/selectors/users-selectors';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        let {currentPage, pageSize} = this.props;
+        this.props.getUsers(currentPage, pageSize);
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.getUsers(pageNumber, this.props.pageSize);
-        this.props.setCurrentPage(pageNumber);
+        let {getUsers, setCurrentPage, pageSize} = this.props;
+        getUsers(pageNumber, pageSize);
+        setCurrentPage(pageNumber);
     }
 
     render() {

@@ -1,9 +1,8 @@
 import React from 'react';
-import css from './Users.module.css';
-import image from './../../assets/images/avaDefault2.png';
-import { NavLink } from 'react-router-dom';
+import User from './User';
+import Paginator from '../common/Paginator/Paginator';
 
-let Users = (props) => {
+let Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
   let pages = [];
   for (let i = 1; i <= pagesCount; i++) {
@@ -12,43 +11,14 @@ let Users = (props) => {
 
   return (
     <div>
+      <Paginator onPageChanged={onPageChanged} currentPage={currentPage}
+                   pageSize={pageSize} totalUsersCount={totalUsersCount} />
       <div>
-
-        {pages.map(x =>
-          <span key={x.id} onClick={() => { props.onPageChanged(x) }}
-            className={(props.currentPage === x) && css.selectedPage}>{x}</span>
-        )}
-
+      {props.users.map(x => <User user={x} 
+                                  followingInProgress={props.followingInProgress}
+                                  unfollow={props.unfollow}
+                                  follow={props.follow} />)}
       </div>
-      {props.users.map(x =>
-
-        <div key={x.id}>
-          <span>
-            <div>
-              <NavLink to={'/profile/' + x.id}><img className={css.userPhoto}
-                alt='avatar'
-                src={x.photos.small ? x.photos.small : image}></img>
-              </NavLink>
-            </div>
-            <div>
-              {x.followed
-                ? <button disabled={props.followingInProgress.some(id => id === x.id)} 
-                onClick={() => { props.unfollow(x.id) }}>Unfollow</button>
-                : <button disabled={props.followingInProgress.some(id => id === x.id)} 
-                onClick={() => { props.follow(x.id) }}>Follow</button>}
-            </div>
-          </span>
-          <span>
-            <span>
-              <div>{x.name}</div><div>{x.status}</div>
-            </span>
-            <span>
-              <div>x.location.country</div>
-              <div>x.location.city</div>
-            </span>
-          </span>
-
-        </div>)}
     </div>
   )
 }
