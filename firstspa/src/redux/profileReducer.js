@@ -5,6 +5,7 @@ const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_USER_STATUS = "SET_USER_STATUS";
 const DELETE_POST_BY_INDEX = "DELETE_POST_BY_INDEX";
+const PHOTO_SAVED_SUCCESFULLY = "PHOTO_SAVED_SUCCESFULLY";
 
 let initialState = {
     postsRawData: [
@@ -51,6 +52,12 @@ export const profileReducer = (state = initialState, action) => {
                 postsRawData: state.postsRawData.filter(x => x.id !== action.index)
             }
         }
+        case PHOTO_SAVED_SUCCESFULLY: {
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
+            }
+        }
         default:
             return state;
     }
@@ -89,5 +96,14 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
     } else {
         dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0] }));
         return Promise.reject(response.data.messages[0]);
+    }
+}
+
+export let savePhotoSuccess = (photos) => ({ type: PHOTO_SAVED_SUCCESFULLY, photos })
+
+export const savePhoto = (file) => async (dispatch) => {
+    let response = await profileAPI.savePhoto(file);
+    if(response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos));
     }
 }

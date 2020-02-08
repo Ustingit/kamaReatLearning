@@ -3,10 +3,11 @@ import css from './ProfileInfo.module.css';
 import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 import ProfileDataForm from "./ProfileDataForm";
+import defaultAvatar from '../../../assets/images/avaDefault2.png';
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile, ...props}) => {
     let [editMode, setEditMode] = useState(false);
-
+    
     if(!profile){
         return <Preloader />
     }
@@ -17,15 +18,21 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
         });
     }
 
+    const onAvatarUploading = (e) => {
+        if(e.target.files.length){
+            savePhoto(e.target.files[0]);
+        }
+    }
+
     return (
         <div>
             <div className={css.descriptionBlock}>
                 <div>
                     <img className={css.avatar} 
                     alt='avatar' 
-                    src={ profile.photos.small }>
+                    src={ profile.photos.large || defaultAvatar }>
                     </img>
-                    
+                    { isOwner && <input type="file" onChange={onAvatarUploading} ></input> }
                     {editMode 
                     ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
                     : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={ () => {setEditMode(true)} } />}
@@ -38,7 +45,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
 }
 
 const ProfileData = ({profile, isOwner, goToEditMode}) => {
-    isOwner = true;
+    //isOwner = true;
 
     return <div>
                 { isOwner && <div><button onClick={goToEditMode} >edit</button></div> }
