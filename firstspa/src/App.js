@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import { initializeApp } from './redux/app-reducer';
@@ -15,9 +15,18 @@ const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsCo
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 
 class App extends Component {
+  catchAllUnhandledErrors = (promiseRejectionEvent) => {
+    alert(promiseRejectionEvent);
+  }
+
   componentDidMount() {
     // действие происходит когда данная компонента "вмонтирована"
     this.props.initializeApp();
+    window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
 
   render () {
@@ -29,10 +38,14 @@ class App extends Component {
             <HeaderContainer />
             <Navbar />
             <div className="app-wrapper-content">
-              <Route path='/profile/:userId?' render={() => <ProfileComponent />} />
-              <Route path='/dialogs' render={withSuspence(DialogsContainer)} />
-              <Route path='/users' render={withSuspence(UsersContainer)} />
-              <Route path='/login' render={() => <Login />} />
+              <Switch>
+                <Route exact path='/' render={() => <Redirect to={'/profile'} />} />
+                <Route path='/profile/:userId?' render={() => <ProfileComponent />} />
+                <Route path='/dialogs' render={withSuspence(DialogsContainer)} />
+                <Route path='/users' render={withSuspence(UsersContainer)} />
+                <Route path='/login' render={() => <Login />} />
+                <Route path='*' render={() => <div>404 NOT FOUND</div>} />
+              </Switch>
           </div>
         </div>
       )
